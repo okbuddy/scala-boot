@@ -5,9 +5,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    username: root
+    username: zhk
     password:
-    url: jdbc:mysql://zhk-linux:3306/bootscala?useSSL=false
+    url: jdbc:mysql://zhk-linux:3306/imooc_log?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Hongkong
   jpa:
     hibernate:
       ddl-auto: update
