@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- 引入 ECharts 文件 -->
+    <script src="js/echarts.common.min.js"></script>
+    <script src="js/jquery-3.3.1.js"></script>
+</head>
+
+
+<body>
+<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+<div id="main" style="width: 600px;height:400px;"></div>
+
+
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+
+    var getStreamData=function(){
+    $.get('spark/topVideo/stream/20180924').done(function (data) {
+        // 指定图表的配置项和数据
+        var legends=[]
+        var seriesData=[]
+        var record=data.data
+        for (i in record){
+            legends.push(record[i].name)
+
+            var ele={}
+            ele.name=record[i].cmsId
+            ele.value=record[i].count
+
+
+            seriesData.push(ele)
+        }
+    console.log(data)
+
+        var option = {
+            title : {
+                text: 'imooc course visit count',
+                subtext: '纯属虚构',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: legends
+            },
+            series : [
+                {
+                    name: 'day course click count',
+                    type: 'pie',
+                    radius : '55%',
+                    center: ['50%', '60%'],
+                    data:record,
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);})}
+
+    setInterval(getStreamData,3000);
+
+</script>
+
+</body>
+
+
+
+</html>

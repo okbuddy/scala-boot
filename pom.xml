@@ -23,12 +23,46 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <scala.version>2.11.8</scala.version>
+        <hbase.version>1.2.0-cdh5.7.0</hbase.version>
+
     </properties>
 
+
+    <!--添加cloudera的repository-->
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>http://repo.maven.apache.org/maven2/</url>
+        </repository>
+        <repository>
+            <id>cloudera</id>
+            <url>https://repository.cloudera.com/artifactory/cloudera-repos</url>
+        </repository>
+
+    </repositories>
+
     <dependencies>
+        <!-- HBase 依赖-->
+        <dependency>
+            <groupId>org.apache.hbase</groupId>
+            <artifactId>hbase-client</artifactId>
+            <version>${hbase.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
